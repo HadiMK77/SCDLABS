@@ -7,7 +7,7 @@ class Printer {
     public synchronized void printPages(int pagesToPrint) {
         while (pagesToPrint > pagesInTray) {
             try {
-                System.out.println("Not enough pages in the tray. Waiting for more pages...");
+                System.out.println("Their are not enough pages in the tray, waiting for more pages.");
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -15,7 +15,7 @@ class Printer {
         }
         pagesInTray -= pagesToPrint;
         System.out.println("Printing " + pagesToPrint + " pages.");
-        System.out.println("Remaining pages in tray: " + pagesInTray);
+        System.out.println("Remaining pages in tray= " + pagesInTray);
     }
 
     public synchronized void addPages(int pages) {
