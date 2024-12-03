@@ -1,14 +1,30 @@
 //2022F-BSE-063
-package Lab6t2;
+package L7task;
+
 public class Main {
     public static void main(String[] args) {
-        Printer printer = new Printer();
+    	Taskmanager taskManager = new Taskmanager();
 
-        Printthread printJob = new Printthread(printer, 15);
-        printJob.start();
+        for (int i = 1; i <= 5; i++) {
+            taskManager.addTask(new Task(i, "Task description " + i));
+        }
 
-        Traythread addPages = new Traythread(printer, 10);
-        addPages.start();
+        Thread worker1 = new Worker(taskManager, 1);
+        Thread worker2 = new Worker(taskManager, 2);
+        Thread worker3 = new Worker(taskManager, 3);
+
+        worker1.start();
+        worker2.start();
+        worker3.start();
+
+        try {
+            worker1.join();
+            worker2.join();
+            worker3.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted");
+        }
+        System.out.println("All tasks have been processed.");
     }
 }
 
